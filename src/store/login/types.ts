@@ -1,6 +1,12 @@
+export enum REQUEST_STATUS {
+    PENDING,
+    COMPLETE
+}
+
 export interface LoginRequest {
     login: string,
-    password: string
+    password: string,
+    requestStatus: REQUEST_STATUS.PENDING
 }
 
 export interface User {
@@ -10,11 +16,13 @@ export interface User {
 }
 
 export interface LoginState {
-    user: User | undefined
+    user: User | undefined,
+    requestStatus: REQUEST_STATUS
 }
 
 export interface LoginResponse {
-    data: User
+    data: User,
+    requestStatus: REQUEST_STATUS.COMPLETE
 }
 
 export interface Errors {
@@ -22,10 +30,16 @@ export interface Errors {
 }
 
 export const SEND_LOGIN_REQUEST = "SEND_LOGIN_REQUEST";
+export const RECEIVE_LOGIN_RESPONSE = "RECEIVE_LOGIN_RESPONSE";
 
 interface SendLoginRequestAction {
     type: typeof SEND_LOGIN_REQUEST,
     payload: LoginRequest
 }
 
-export type LoginActionTypes = SendLoginRequestAction;
+interface ReceiveLoginResponseAction {
+    type: typeof RECEIVE_LOGIN_RESPONSE,
+    payload: LoginResponse
+}
+
+export type LoginActionTypes = SendLoginRequestAction | ReceiveLoginResponseAction;
