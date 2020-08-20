@@ -1,8 +1,11 @@
 import {applyMiddleware, createStore, Store} from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import thunk from 'redux-thunk';
 
 import rootReducer from './rootReducer';
+import {API_URL} from "../constants/AppConst";
+
+const api = API_URL;
 
 export function configureStore(): Store {
-    return createStore(rootReducer, {}, applyMiddleware(thunkMiddleware));
+    return createStore(rootReducer, {}, applyMiddleware(thunk.withExtraArgument(api)));
 }

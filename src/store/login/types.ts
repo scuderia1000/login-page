@@ -1,3 +1,7 @@
+import {Action} from "redux";
+import {RootState} from "../rootReducer";
+import {ThunkAction} from "redux-thunk";
+
 export enum REQUEST_STATUS {
     PENDING,
     COMPLETE
@@ -9,12 +13,12 @@ export interface User {
     age: number
 }
 
-export interface Request {
+export interface LoginRequest {
     login: string,
     password: string
 }
 
-export interface Response {
+export interface LoginResponse {
     data: User
 }
 
@@ -39,7 +43,7 @@ export const RECEIVE_LOGIN_ERROR = "RECEIVE_LOGIN_ERROR";
 interface SendLoginRequestAction {
     type: typeof SEND_LOGIN_REQUEST,
     payload: {
-        loginData: Request,
+        loginData: LoginRequest,
         requestStatus: REQUEST_STATUS
     }
 }
@@ -58,3 +62,5 @@ interface ReceiveLoginErrorAction {
 }
 
 export type LoginActionTypes = SendLoginRequestAction | ReceiveLoginResponseAction | ReceiveLoginErrorAction;
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;

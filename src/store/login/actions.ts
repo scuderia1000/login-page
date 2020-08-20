@@ -1,16 +1,15 @@
 import {
-    Request,
-    Response,
+    LoginRequest,
+    LoginResponse,
     ErrorResponse,
     LoginActionTypes,
     RECEIVE_LOGIN_ERROR,
     RECEIVE_LOGIN_RESPONSE,
     REQUEST_STATUS,
-    SEND_LOGIN_REQUEST
+    SEND_LOGIN_REQUEST, AppThunk
 } from "./types";
 
-
-export function sendLoginRequest(request: Request): LoginActionTypes {
+export function sendLoginRequest(request: LoginRequest): LoginActionTypes {
     return {
         type: SEND_LOGIN_REQUEST,
         payload: {
@@ -20,7 +19,7 @@ export function sendLoginRequest(request: Request): LoginActionTypes {
     }
 }
 
-export function receiveLoginResponse(response: Response): LoginActionTypes {
+export function receiveLoginResponse(response: LoginResponse): LoginActionTypes {
     return {
         type: RECEIVE_LOGIN_RESPONSE,
         payload: {
@@ -39,3 +38,9 @@ export function receiveLoginError(response: ErrorResponse): LoginActionTypes {
         }
     }
 }
+
+export const login = (loginData: LoginRequest): AppThunk => async (dispatch, getState, api: string) => {
+    dispatch(sendLoginRequest(loginData));
+
+    const response = await fetch(api)
+};
