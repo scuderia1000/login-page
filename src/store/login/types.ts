@@ -63,4 +63,4 @@ interface ReceiveLoginErrorAction {
 
 export type LoginActionTypes = SendLoginRequestAction | ReceiveLoginResponseAction | ReceiveLoginErrorAction;
 
-export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, string, Action<string>>;

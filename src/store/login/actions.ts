@@ -8,8 +8,10 @@ import {
     REQUEST_STATUS,
     SEND_LOGIN_REQUEST, AppThunk
 } from "./types";
+import {LOGIN} from "../../constants/AppConst";
+import {hasLoginError, post} from "../../util/Util";
 
-export function sendLoginRequest(request: LoginRequest): LoginActionTypes {
+function sendLoginRequest(request: LoginRequest): LoginActionTypes {
     return {
         type: SEND_LOGIN_REQUEST,
         payload: {
@@ -39,8 +41,15 @@ export function receiveLoginError(response: ErrorResponse): LoginActionTypes {
     }
 }
 
-export const login = (loginData: LoginRequest): AppThunk => async (dispatch, getState, api: string) => {
+export const login = (loginData: LoginRequest): AppThunk => async (dispatch, getState, api) => {
     dispatch(sendLoginRequest(loginData));
 
-    const response = await fetch(api)
+    const data = await post<LoginResponse | ErrorResponse>(api + LOGIN, loginData);
+
+    if (hasLoginError(data)) {
+        dispatch(receiveLoginError(data as ErrorResponse));
+    } else {
+        dispatch(receiveLoginResponse(data as LoginResponse));
+    }
+
 };
