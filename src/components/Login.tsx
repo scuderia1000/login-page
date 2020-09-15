@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {Input} from "./input/Input";
 import {InputTypes} from "./input/types";
 
-export const Login = () => {
+export const Login: FunctionComponent = () => {
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <div className={"login-form"}>
             <span className={"login-form__title"}>Login</span>
@@ -11,6 +12,7 @@ export const Login = () => {
 
             </div>
             <Input label="Email" type={InputTypes.TEXT} value={email} action={setEmail}/>
+            <Input label="Password" type={InputTypes.PASSWORD} value={password} action={setPassword}/>
         </div>
     );
 };

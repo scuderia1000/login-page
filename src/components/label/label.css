@@ -1,0 +1,19 @@
+.label {
+    font-size: 14px;
+    color: #adb5b8;
+    padding-bottom: 10px;
+}
+
+.label-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.link_dotted {
+    cursor: pointer;
+    border-bottom: 1px dotted #4685ff;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: #4685ff;
+}

@@ -1,11 +1,21 @@
 .input-form{
-
-}
-
-.input-form__label {
-
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-bottom: 20px;
 }
 
 .input-form__input {
+    flex: 1;
+    box-sizing: border-box;
+    height: 48px;
+    border: 1px solid #d5d8d9;
+    border-radius: 3px;
+    padding: 15px;
+    font-size: 16px;
 
+}
+
+.input-form__input:focus {
+    border-color: #4685ff;
 }
