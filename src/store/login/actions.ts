@@ -10,6 +10,7 @@ import {
 } from "./types";
 import {LOGIN} from "../../constants/AppConst";
 import {hasLoginError, post} from "../../util/Utils";
+import {HttpResponse} from "../../util/types";
 
 function sendLoginRequest(request: LoginRequest): LoginActionTypes {
     return {
@@ -44,10 +45,10 @@ export function receiveLoginError(response: ErrorResponse): LoginActionTypes {
 export const login = (loginData: LoginRequest): AppThunk => async (dispatch, getState, api) => {
     dispatch(sendLoginRequest(loginData));
 
-    const response = await post<LoginResponse | ErrorResponse>(`${api}${LOGIN}`, loginData);
+    const response: HttpResponse<LoginResponse | ErrorResponse> = await  post<LoginResponse | ErrorResponse>(`${api}${LOGIN}`, loginData);
 
-    if (hasLoginError(response.parsedBody)) {
-        dispatch(receiveLoginError(response.parsedBody as ErrorResponse));
+    if (hasLoginError(response)) {
+        dispatch(receiveLoginError(response as ErrorResponse));
     } else {
         dispatch(receiveLoginResponse(response.parsedBody as LoginResponse));
     }

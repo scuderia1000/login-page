@@ -1,18 +1,22 @@
 import React, {FunctionComponent} from 'react';
 import cn from 'classnames'
 import './button.css';
+import {ButtonProps} from "../types";
 
 
-export const Button: FunctionComponent<{ text: string, type?: string }> = ({text, type = "submit"}) => {
+export const Button: FunctionComponent<ButtonProps> = ({text, isDisabled, isLoading, action}) => {
     const buttonClass = cn(
         'button',
         'button_green',
         {
-            button_submit: type === "submit"
+            button__loading: isLoading,
+            button__disabled: isDisabled
         });
     return (
         <>
-            <input className={buttonClass} type={type} value={text}/>
+            <div className={buttonClass} onClick={() => action()}>
+                {text}
+            </div>
         </>
     )
 };

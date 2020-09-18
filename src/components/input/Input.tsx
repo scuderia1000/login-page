@@ -1,14 +1,11 @@
 import React, {FunctionComponent} from 'react';
-import {InputProps, InputTypes} from "./types";
-import {PasswordLabel} from "../label/PasswordLabel";
-import {Label} from "../label/Label";
-import './input.css';
+import {InputProps} from "../types";
+import './style/input.css';
 
-export const Input: FunctionComponent<InputProps> = ({label, value, type, action}) => {
+export const Input: FunctionComponent<InputProps> = ({value, type, action}) => {
     return (
-        <div className={"input-form"}>
-            {type === InputTypes.PASSWORD ? <PasswordLabel label={label}/> : <Label label={label}/>}
-            <input className={"input-form__input"} type={type} value={value} onChange={e => action(e.target.value)}/>
-        </div>
+        <>
+            <input className={"input"} type={type} value={value} onChange={e => action(e.target.value)}/>
+        </>
     )
 };

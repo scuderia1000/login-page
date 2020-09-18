@@ -1,7 +1,6 @@
 .label {
     font-size: 14px;
     color: #adb5b8;
-    padding-bottom: 10px;
 }
 
 .label-wrapper {
@@ -16,4 +15,8 @@
     margin-bottom: 10px;
     font-size: 13px;
     color: #4685ff;
+}
+
+.label-black {
+    color: #000000;
 }

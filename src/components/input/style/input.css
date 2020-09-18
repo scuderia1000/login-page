@@ -1,11 +1,4 @@
-.input-form{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    margin-bottom: 20px;
-}
-
-.input-form__input {
+.input {
     flex: 1;
     box-sizing: border-box;
     height: 48px;
@@ -16,6 +9,6 @@
 
 }
 
-.input-form__input:focus {
+.input:focus {
     border-color: #4685ff;
 }

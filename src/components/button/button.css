@@ -1,12 +1,15 @@
 .button {
     border-radius: 100px;
-    margin-top: 24px;
+    margin-top: 28px;
     height: 48px;
     border: 0;
     font-weight: 600;
     color: #FFFFFF;
     font-size: 14px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .button_submit:hover {
@@ -15,5 +18,88 @@
 
 .button_green {
     transition: box-shadow 300ms, -webkit-box-shadow 300ms;
-    background-color: #33cc7f;
+    background-color: #21ba45;
+}
+
+.button_green:hover {
+    background-color: #16ab39;
+}
+
+.button_green:active {
+    background-color: #198f35;
+}
+
+.button__disabled {
+    background: #e0e1e2;
+}
+
+.button__disabled:hover {
+    box-shadow: none;
+}
+
+.button__loading {
+    position: relative;
+    cursor: default;
+    text-shadow: none!important;
+    color: transparent!important;
+    opacity: 1;
+    pointer-events: auto;
+    -webkit-transition: all 0s linear,opacity .1s ease;
+    transition: all 0s linear,opacity .1s ease;
+}
+
+.button__loading::before {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    margin: -.74285714em 0 0 -.64285714em;
+    width: 1.28571429em;
+    height: 1.28571429em;
+    border-radius: 500rem;
+    border: .2em solid rgba(0,0,0,.15);
+}
+
+.button__loading::after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    margin: -.74285714em 0 0 -.64285714em;
+    width: 1.28571429em;
+    height: 1.28571429em;
+    -webkit-animation: button-spin .6s linear;
+    animation: button-spin .6s linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    border-radius: 500rem;
+    border-color: #fff transparent transparent;
+    border-style: solid;
+    border-width: .2em;
+    -webkit-box-shadow: 0 0 0 1px transparent;
+    box-shadow: 0 0 0 1px transparent;
+}
+
+@-webkit-keyframes button-spin {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes button-spin {
+    from {
+        -webkit-transform: rotate(0);
+        transform: rotate(0)
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg)
+    }
 }
