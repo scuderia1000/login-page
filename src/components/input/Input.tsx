@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from 'react';
 import {InputProps, InputTypes} from "./types";
-import './input.css';
 import {PasswordLabel} from "../label/PasswordLabel";
 import {Label} from "../label/Label";
+import './input.css';
 
 export const Input: FunctionComponent<InputProps> = ({label, value, type, action}) => {
     return (

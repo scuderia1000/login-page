@@ -19,7 +19,7 @@
 
 .login-form {
     width: 100%;
-    max-width: 500px;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     padding: 30px 75px;
