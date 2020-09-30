@@ -2,51 +2,48 @@ import {
     LoginRequest,
     LoginResponse,
     ErrorResponse,
-    LoginActionTypes,
-    RECEIVE_LOGIN_ERROR,
-    RECEIVE_LOGIN_RESPONSE,
     REQUEST_STATUS,
-    SEND_LOGIN_REQUEST, AppThunk
+    AppThunk
 } from "./types";
-import {LOGIN} from "../../constants/AppConst";
+import {ACTIONS, LOGIN} from "../../constants/AppConst";
 import {hasLoginError, post} from "../../util/Utils";
 import {HttpResponse} from "../../util/types";
 
-function sendLoginRequest(request: LoginRequest): LoginActionTypes {
-    return {
-        type: SEND_LOGIN_REQUEST,
+const sendLoginRequest = (request: LoginRequest) => ({
+        type: ACTIONS.LOGIN.REQUEST,
         payload: {
             loginData: request,
             requestStatus: REQUEST_STATUS.PENDING
         }
-    }
-}
+} as const);
 
-export function receiveLoginResponse(response: LoginResponse): LoginActionTypes {
+export function receiveLoginResponse(response: LoginResponse) {
     return {
-        type: RECEIVE_LOGIN_RESPONSE,
+        type: ACTIONS.LOGIN.RESPONSE,
         payload: {
             user: response.data,
             requestStatus: REQUEST_STATUS.COMPLETE
         }
-    }
+    } as const
 }
 
-export function receiveLoginError(response: ErrorResponse): LoginActionTypes {
+export function receiveLoginError(response: ErrorResponse) {
     return {
-        type: RECEIVE_LOGIN_ERROR,
+        type: ACTIONS.LOGIN.ERROR,
         payload: {
-            ...response,
+            errors: response.errors,
             requestStatus: REQUEST_STATUS.COMPLETE
         }
-    }
+    } as const
 }
+
+export type LoginActionTypes = ReturnType<typeof sendLoginRequest> |  ReturnType<typeof receiveLoginResponse> |  ReturnType<typeof receiveLoginError>;
 
 export const login = (loginData: LoginRequest): AppThunk => async (dispatch, getState, api) => {
     dispatch(sendLoginRequest(loginData));
 
     const response: HttpResponse<LoginResponse | ErrorResponse> = await  post<LoginResponse | ErrorResponse>(`${api}${LOGIN}`, loginData);
-
+debugger
     if (hasLoginError(response)) {
         dispatch(receiveLoginError(response as ErrorResponse));
     } else {

@@ -1,9 +1,9 @@
-import fetch from 'cross-fetch'
+import fetch from 'cross-fetch';
 import {ErrorResponse, LoginResponse} from "../store/login/types";
 import {HttpResponse} from "./types";
 
-export async function http<T>(request: RequestInfo): Promise<HttpResponse<T>> {
-    const response: HttpResponse<T> = await fetch(request);
+export async function http<T>(url: RequestInfo, request: RequestInit): Promise<HttpResponse<T>> {
+    const response: HttpResponse<T> = await fetch(url, request);
 debugger
     try {
         response.parsedBody = await response.json();
@@ -28,7 +28,7 @@ export async function post<T>(
     body: any,
     args: RequestInit = { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) }
 ): Promise<HttpResponse<T>> {
-    return await http<T>(new Request(url, args));
+    return await http<T>(url, args);
 }
 
 export const hasLoginError = (response: HttpResponse<LoginResponse | ErrorResponse>): boolean => !!response && response.hasOwnProperty("errors");

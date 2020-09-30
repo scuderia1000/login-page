@@ -1,11 +1,9 @@
 import {
-    LoginActionTypes,
     LoginState,
-    RECEIVE_LOGIN_ERROR,
-    RECEIVE_LOGIN_RESPONSE,
-    REQUEST_STATUS,
-    SEND_LOGIN_REQUEST
+    REQUEST_STATUS
 } from "./types";
+import {LoginActionTypes} from "./actions";
+import {ACTIONS} from "../../constants/AppConst";
 
 const initialState: LoginState = {
     user: undefined,
@@ -15,20 +13,20 @@ const initialState: LoginState = {
 
 export function loginReducer(state = initialState, action: LoginActionTypes): LoginState {
     switch (action.type) {
-        case SEND_LOGIN_REQUEST:
+        case ACTIONS.LOGIN.REQUEST:
             return {
                 ...state,
                 requestStatus: action.payload.requestStatus
             };
-        case RECEIVE_LOGIN_RESPONSE:
+        case ACTIONS.LOGIN.RESPONSE:
             return {
                 ...state,
-                ...action.payload,
+                ...action.payload
             };
-        case RECEIVE_LOGIN_ERROR:
+        case ACTIONS.LOGIN.ERROR:
             return {
                 ...state,
-                ...action.payload,
+                ...action.payload
             };
         default:
             return state;
