@@ -1,23 +1,25 @@
 import fetch from 'cross-fetch';
-import {ErrorResponse, LoginResponse} from "../store/login/types";
+import {LoginResponse} from "../store/login/types";
 import {HttpResponse} from "./types";
 
 export async function http<T>(url: RequestInfo, request: RequestInit): Promise<HttpResponse<T>> {
-    const response: HttpResponse<T> = await fetch(url, request);
-debugger
+    let response: HttpResponse<T> = new Response();
     try {
-        response.parsedBody = await response.json();
-    } catch (e) {
-        // TODO убрать, когда сделаю централизованный перехват ошибок
-        console.error('Response has no body');
-        response.errors = ['Response has no body'];
-        // throw new Error('Response has no body');
-    }
+        response = await fetch(url, request);
 
-    if (!response.ok) {
+        if (!response.ok) {
+            // TODO убрать, когда сделаю централизованный перехват ошибок
+            console.error('Response status error:', response.statusText);
+            response.error = [`Response status error: ${response.statusText}`];
+            // throw new Error(response.statusText);
+        }
+
+        response.parsedBody = await response.json();
+    } catch (error) {
         // TODO убрать, когда сделаю централизованный перехват ошибок
-        console.error('Http error', response.statusText);
-        // throw new Error(response.statusText);
+        console.error('Http error: ', error);
+        response.error = [`Http error: ${error}`];
+        // throw new Error('Response has no body');
     }
 
     return response;
@@ -31,4 +33,6 @@ export async function post<T>(
     return await http<T>(url, args);
 }
 
-export const hasLoginError = (response: HttpResponse<LoginResponse | ErrorResponse>): boolean => !!response && response.hasOwnProperty("errors");
+export const hasError = (response: HttpResponse<any>): boolean => !!response && response.hasOwnProperty("error");
+export const hasLoginError = (response: HttpResponse<LoginResponse>): boolean =>
+    !!response && !!response.parsedBody && response.parsedBody.hasOwnProperty("errors");

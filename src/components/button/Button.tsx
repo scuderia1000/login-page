@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import cn from 'classnames'
+import cn from 'classnames';
 import './button.css';
 import {ButtonProps} from "../types";
 

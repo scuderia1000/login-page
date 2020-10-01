@@ -4,7 +4,8 @@ import {ThunkAction} from "redux-thunk";
 
 export enum REQUEST_STATUS {
     PENDING,
-    COMPLETE
+    COMPLETE,
+    ERROR
 }
 
 export interface User {
@@ -19,16 +20,17 @@ export interface LoginRequest {
 }
 
 export interface LoginResponse {
-    data: User
+    data?: User,
+    errors?: string[]
 }
 
-export interface ErrorResponse {
-    errors: string[]
+export interface Error {
+    error: string[]
 }
 
 export interface LoginState {
     user: User | undefined,
-    errors: ErrorResponse | undefined | string[]
+    errors: string[] | undefined
     requestStatus: REQUEST_STATUS
 }
 

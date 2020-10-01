@@ -28,6 +28,11 @@ export function loginReducer(state = initialState, action: LoginActionTypes): Lo
                 ...state,
                 ...action.payload
             };
+        case ACTIONS.ERROR:
+            return {
+                ...state,
+                ...action.payload
+            };
         default:
             return state;
     }

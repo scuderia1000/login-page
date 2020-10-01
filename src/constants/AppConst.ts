@@ -7,6 +7,7 @@ export const ACTIONS = {
         REQUEST: "SEND_LOGIN_REQUEST",
         RESPONSE: "RECEIVE_LOGIN_RESPONSE",
         ERROR: "RECEIVE_LOGIN_ERROR"
-    }
+    },
+    ERROR: 'ERROR'
 };
 
