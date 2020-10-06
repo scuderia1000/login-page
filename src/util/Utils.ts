@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch';
-import {LoginResponse} from "../store/login/types";
+import {LoginResponseState} from "../store/login/types";
 import {HttpResponse} from "./types";
 
 export async function http<T>(url: RequestInfo, request: RequestInit): Promise<HttpResponse<T>> {
@@ -10,16 +10,14 @@ export async function http<T>(url: RequestInfo, request: RequestInit): Promise<H
         if (!response.ok) {
             // TODO убрать, когда сделаю централизованный перехват ошибок
             console.error('Response status error:', response.statusText);
-            response.error = [`Response status error: ${response.statusText}`];
-            // throw new Error(response.statusText);
+            throw new Error(response.statusText);
         }
 
         response.parsedBody = await response.json();
     } catch (error) {
         // TODO убрать, когда сделаю централизованный перехват ошибок
         console.error('Http error: ', error);
-        response.error = [`Http error: ${error}`];
-        // throw new Error('Response has no body');
+        throw new Error(error);
     }
 
     return response;
@@ -34,5 +32,6 @@ export async function post<T>(
 }
 
 export const hasError = (response: HttpResponse<any>): boolean => !!response && response.hasOwnProperty("error");
-export const hasLoginError = (response: HttpResponse<LoginResponse>): boolean =>
+
+export const hasLoginError = (response: HttpResponse<LoginResponseState>): boolean =>
     !!response && !!response.parsedBody && response.parsedBody.hasOwnProperty("errors");
