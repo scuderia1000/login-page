@@ -27,6 +27,7 @@ export const { actions, reducer } = createSlice({
               }>
             ) {
                 state.requestStatus = action.payload.requestStatus;
+                state.errors = undefined;
             },
             prepare(request: LoginRequest) {
                 return {
@@ -46,6 +47,7 @@ export const { actions, reducer } = createSlice({
               }>
             ) {
                 state.user = action.payload.response.data;
+                state.errors = undefined;
                 state.requestStatus = action.payload.requestStatus;
             },
             prepare(response: LoginResponseState) {
@@ -72,7 +74,7 @@ export const { actions, reducer } = createSlice({
                 return {
                     payload: {
                         error: response as LoginErrorResponse,
-                        requestStatus: REQUEST_STATUS.COMPLETE
+                        requestStatus: REQUEST_STATUS.ERROR
                     }
                 }
             }

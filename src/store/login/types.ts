@@ -3,9 +3,9 @@ import {RootState} from "../rootReducer";
 import {ThunkAction} from "@reduxjs/toolkit";
 
 export enum REQUEST_STATUS {
-    PENDING,
-    COMPLETE,
-    ERROR
+    PENDING = 'PENDING',
+    COMPLETE = 'COMPLETE',
+    ERROR = 'ERROR'
 }
 
 export interface User {

@@ -11,7 +11,7 @@ export const login = (loginData: LoginRequest): AppThunk => async (dispatch, get
   dispatch(loginSlice.actions.request(loginData));
 
   const response: HttpResponse<LoginResponseState> = await post<LoginResponseState>(`${api}${LOGIN}`, loginData);
-  debugger
+  
   if (hasLoginError(response)) {
     dispatch(loginSlice.actions.error(response.parsedBody as LoginErrorResponse));
   } else {
